@@ -8,7 +8,7 @@ rootPlot() #to plot the data
 summaryWSvsWW() #to summarize data for plotting significant differences
 plotDifferences() #to plot the differences between WW and WS at each timepoint with significance indicated
 rootLengthsApp() #graphical app (and RStudio addin) runs as an RStudio gadget or in web browser 
-(displays, outputs, return plots & summaries)
+# The rootLengthsApp utilizes all other functions except mergeCSVs (displays, outputs, return plots & summaries)
 ```
 
 Most of the data analysis pipeline can be run from the `rootLengthsApp` graphical interface.  `rootLengthsApp` is a neat shiny gadget and Rstudio addin that can run in an RStudio window or in a local web browser.
