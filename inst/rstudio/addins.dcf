@@ -1,0 +1,9 @@
+Name: Run rootLengthsApp
+Descriptions: Runs the rootLengthsApp Shiny Gadget for processing root length data.
+Binding: rootLengthsApp
+Interactive: TRUE
+
+Name: Merge CSVs
+Descriptions: Runs the mergeCSVs function to combine CSV contents for rootLengthsApp.  Place all CSV files to be combined in the same folder and select a file from this folder.
+Binding: mergeCSVs
+Interactive: TRUE
