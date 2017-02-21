@@ -8,7 +8,7 @@
 #'
 #' @export
 #'
-rootPlot <- function (rootDF, title = "", max = 40, by = 5, returnSummary = FALSE) {
+rootPlot <- function(rootDF, title = "", max = 40, by = 5, returnSummary = FALSE) {
   ## Already in long format, next summarize data
   rootDFsumm <- Rmisc::summarySE(rootDF, measurevar = "length", groupvars=c("day","structure"))
 

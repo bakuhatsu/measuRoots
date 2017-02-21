@@ -1,1 +1,7 @@
-exportPattern("^[[:alpha:]]+")
+export(compileRootDF)
+export(mergeCSVs)
+export(plotDifferences)
+export(rootLengthsApp)
+export(rootPlot)
+export(summaryBvsA)
+export(summaryWSvsWW)
