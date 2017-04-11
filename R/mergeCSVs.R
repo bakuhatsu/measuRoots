@@ -23,9 +23,7 @@ mergeCSVs <- function(csvFile = file.choose(), returnFile = F) { # select a file
     # if the merged dataset doesn't exist, create it
     if (!exists("mergedCSVfiles")){
       mergedCSVfiles <- utils::read.csv(file, header = T, stringsAsFactors = F)
-    }
-    # if the merged dataset does exist, append to it
-    if (exists("mergedCSVfiles")){
+    } else if (exists("mergedCSVfiles")){ # if the merged dataset does exist, append to it
       temp_dataset <- utils::read.csv(file, header = T, stringsAsFactors = F)
       mergedCSVfiles <- rbind(mergedCSVfiles, temp_dataset)
       rm(temp_dataset)
