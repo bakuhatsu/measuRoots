@@ -178,7 +178,7 @@ compileRootDF <- function (day0csv=file.choose(), day1csv=file.choose(), day2csv
   rootLengthsDataFrame <- dplyr::filter(rootLengthsDataFrame, !is.na(length))
 
   ## Remove r6 if less than 3 seedlings with r6 present ##
-  numWithRootSix <- sum(dplyr::filter(rootLengthsDataFrame, structure == "r6" & day == 2 & length > 0)$length)
+  numWithRootSix <- length(dplyr::filter(rootLengthsDataFrame, structure == "r6" & day == 2 & length > 0)$length)
 
   if (numWithRootSix < rtSixMinimum) {
     rootLengthsDataFrame <- dplyr::filter(rootLengthsDataFrame,structure != "r6")

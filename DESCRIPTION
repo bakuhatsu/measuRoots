@@ -8,12 +8,15 @@ Description: Takes .csv files output from the imageJ extension, SmartRoot, and m
 License: MIT License
 LazyData: TRUE
 Imports:
+    afex,
     cowplot,
     dplyr,
     ggplot2,
     htmltools,
+    lsmeans,
     miniUI,
     RColorBrewer,
     Rmisc,
     stringi,
-    shiny
+    shiny,
+    utils
