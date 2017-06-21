@@ -239,6 +239,14 @@ rootLengthsApp <- function(wwday0csv = NULL, wwday1csv = NULL, wwday2csv = NULL,
       compileRootDF(inWSday0$datapath, inWSday1$datapath, inWSday2$datapath, printFilePaths = FALSE)
     })
 
+    summWSvsWW <- shiny::reactive({
+      # if (is.null(rootDFww() | rootDFws())) # error
+      #   return(NULL)
+
+        # make summary
+        summaryWSvsWW(rootDFww(), rootDFws(), pCuttoff = 0.05)
+    })
+
     #### Preparing comboPlot for use in figure ####
     wwPlot <- shiny::reactive({
       if(is.null(rootDFww()))
@@ -253,10 +261,10 @@ rootLengthsApp <- function(wwday0csv = NULL, wwday1csv = NULL, wwday2csv = NULL,
     diffPlot <- shiny::reactive({
       if(is.null(rootDFww()) | is.null(rootDFws))
         return(NULL)
-      # make summary
-      summWSvsWW <- summaryWSvsWW(rootDFww(), rootDFws(), pCuttoff = 0.05)
+      # # make summary
+      # summWSvsWW <- summaryWSvsWW(rootDFww(), rootDFws(), pCuttoff = 0.05)
       # make plot
-      plotDifferences(summWSvsWW)
+      plotDifferences(summWSvsWW())
       })
     comboPlot <- shiny::reactive({
 
