@@ -6,6 +6,9 @@
 
 # Write a function to create a summary between WW and WS
 # summaryWWvsWS (A = WW, B = WS)
+
+pkg.env <- new.env(parent = emptyenv())
+
 #'
 #' @export
 #'
@@ -48,8 +51,8 @@ summaryBvsA <- function(A, B, measurevar = "length", pCuttoff = 0.05, Aname = "W
       combData_trim$seed <- factor(combData_trim$seed, levels = c(1:max(combData_trim$seed)))
       combData_trim$structure <- factor(combData_trim$structure, levels = struct)
       combData_trim$day <- factor(combData_trim$day, levels = c(0:max(unique(combData_trim$day))))
-      #assign("combData_trim", combData_trim, envir = package:measuRoots)
-      combData_tr <<- combData_trim
+      # lsmeans has an env issue and cannot always access the local variables, so use pkg.env
+      pkg.env$combData_tr <- combData_trim
       # Mixed Design Anova with post hoc lsmeans analysis
       # Independent Variable between:  treatment
       # Independent Variable within:   day
@@ -59,11 +62,11 @@ summaryBvsA <- function(A, B, measurevar = "length", pCuttoff = 0.05, Aname = "W
       # Mixed effects modelling
       utils::capture.output( # Capture printing from mixed function to console (don't dispay)
         utils::capture.output( # Capture messages from mixed function to console (don't display)
-          fit_mixed <- afex::mixed(length ~ treatment*day + (1|seed), data = combData_tr),
+          fit_mixed <- afex::mixed(length ~ treatment*day + (1|seed), data = pkg.env$combData_tr),
         type = "message")
         )
       ## Pairwise comparisons
-      ref3 <- lsmeans::lsmeans(fit_mixed, ~ treatment|day, data = combData_tr) # | is same as "by"
+      ref3 <- lsmeans::lsmeans(fit_mixed, ~ treatment|day, data = pkg.env$combData_tr) # | is same as "by"
       comps <- lsmeans::contrast(ref3, method="pairwise")
       # adjusting for each level
       outputLSM <- summary(comps)
@@ -88,7 +91,7 @@ summaryBvsA <- function(A, B, measurevar = "length", pCuttoff = 0.05, Aname = "W
       rm(pvalue)
     }
     rm(combData_trim)
-    rm(combData_tr, envir = "package:measuRoots")
+    rm(combData_tr, envir = pkg.env)
   }
   BvsAdf <- BvsAdf[,1:4] # remove the rowNums column
   return(BvsAdf)
