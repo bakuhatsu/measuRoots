@@ -23,7 +23,18 @@ summaryBvsA <- function(A, B, measurevar = "length", pCuttoff = 0.05, Aname = "W
   if (length(dplyr::filter(combinedData, structure == "r6")$structure) > 0) {
     structList <- c("shoot", "r1", "r2", "r3", "r4", "r5", "r6")
   } else {
-    structList <- c("shoot", "r1", "r2", "r3", "r4", "r5")
+    r4AllZero <- nrow(dplyr::filter(combinedData, structure == "r4" & length != 0)) == 0
+    r5AllZero <- nrow(dplyr::filter(combinedData, structure == "r5" & length != 0)) == 0
+    if (!r4AllZero & !r5AllZero) {
+      structList <- c("shoot", "r1", "r2", "r3", "r4", "r5")
+    } else if (r4AllZero & r5AllZero) {
+      structList <- c("shoot", "r1", "r2", "r3")
+    } else if (r4AllZero & !r5AllZero) {
+      structList <- c("shoot", "r1", "r2", "r3", "r5")
+    } else if (!r4AllZero & r5AllZero) {
+      structList <- c("shoot", "r1", "r2", "r3", "r4")
+    }
+
   }
   # combinedData$treatment <- factor(combinedData$treatment, levels = c("WW", "WS"))
   # combinedData$seed <- factor(combinedData$seed, levels = c(1:max(combinedData$seed)))
