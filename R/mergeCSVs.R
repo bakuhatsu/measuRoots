@@ -48,8 +48,8 @@ mergeCSVs <- function(csvFile = file.choose(), returnFile = F, outputName = NULL
     } else if (grepl("WS[1-3]", csvFile.name)) { # WS1-3 --> WS
       csvFile.name <- sub("WS[1-3]", "WS", csvFile.name)
     }
-    if (grepl(" s[1-8]", csvFile.name)) { # get rid of s1 - s8
-      csvFile.name <- sub(" s[1-8]", "", csvFile.name)
+    if (grepl(" [Ss][1-8]", csvFile.name)) { # get rid of s1 - s8
+      csvFile.name <- sub(" [Ss][1-8]", "", csvFile.name)
     }
     if (grepl(".csv", csvFile.name)) {
       csvFile.name <- sub(".csv", " (combined).csv", csvFile.name)
