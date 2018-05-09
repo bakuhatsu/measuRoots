@@ -7,7 +7,7 @@
 #'
 #' @export
 #'
-plotDifferences <- function(summaryBvsA) {
+plotDifferences <- function(summaryBvsA, ymin = -20.5) {
 
   summaryBvsA$structure <- factor(summaryBvsA$structure, levels=c("shoot","r1", "r2","r3","r4","r5", "r6"))
   ## Plot the difference
@@ -20,7 +20,7 @@ plotDifferences <- function(summaryBvsA) {
     ggplot2::xlab("Time after water stress (hours)") + # Set x-axis label
     ggplot2::ylab("Difference (WS - WW)") + # Set y-axis label
     ggplot2::scale_x_continuous(breaks=c(0,1,2), labels = c(" WS","24h","48h ")) +
-    ggplot2::ylim(-20.5,10) + # default ylim(-20,10)
+    ggplot2::ylim(ymin,10) + # default ylim(-20,10)
     ggplot2::theme_bw() +
     ggplot2::facet_wrap(~structure, nrow = 2, ncol = 3, dir = "v") +
     ggplot2::theme(#strip.text.y = element_blank(), #element_text(face = "bold",size=12),

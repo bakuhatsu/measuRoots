@@ -8,7 +8,7 @@
 #'
 #' @export
 #'
-rootPlot <- function(rootDF, title = "", max = 40, by = 5, returnSummary = FALSE) {
+rootPlot <- function(rootDF, title = "", max = 40, by = 10, returnSummary = FALSE) {
   ## Already in long format, next summarize data
   rootDFsumm <- Rmisc::summarySE(rootDF, measurevar = "length", groupvars=c("day","structure"))
 
@@ -84,7 +84,8 @@ rootPlot <- function(rootDF, title = "", max = 40, by = 5, returnSummary = FALSE
     #scale_fill_brewer(palette = 6) + # black and white
     #scale_fill_manual(name="treatment", values=c("brown","orange","blue")) +
     # scale_y_continuous(breaks = seq(-35, 30, 5), labels = abs(seq(-35, 30, 5))) + # Adjusts y axis breaks and max/min values
-    ggplot2::scale_y_continuous(breaks = seq(-(max), max, by), labels = abs(seq(-(max), max, by))) + # Adjusts y axis breaks and max/min values
+    ggplot2::scale_y_continuous(breaks = seq(-(max), max, by), labels = abs(seq(-(max), max, by)), limits=c(-max, max)) + # Adjusts y axis breaks and max/min values
+    #ggplot2::ylim(-max, max) + # default ylim(-20,10)
     ggplot2::xlab("Structure") + # Set x-axis label
     ggplot2::ylab("Length (mm)") + # Set y-axis label
     ggplot2::theme_bw() +
