@@ -1,7 +1,7 @@
 Package: measuRoots
 Type: Package
 Title: For analysis and plotting of root length data output from SmartRoot in imageJ
-Version: 0.1.1
+Version: 0.1.2
 Author: Sven K Nelson
 Maintainer: Sven Nelson <sven.nelson100@email.wsu.edu>
 Description: Takes .csv files output from the imageJ extension, SmartRoot, and makes root length plots.
