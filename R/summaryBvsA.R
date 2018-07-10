@@ -77,7 +77,6 @@ summaryBvsA <- function(A, B, measurevar = "length", pCuttoff = 0.05, Aname = "W
         type = "message")
         )
       ## Pairwise comparisons
-      emm_options(lmer.df = "asymptotic") # also possible: 'satterthwaite', 'kenward-roger'
       ref3 <- emmeans::emmeans(fit_mixed, ~ treatment|day, data = pkg.env$combData_tr) # | is same as "by"
       comps <- emmeans::contrast(ref3, method="pairwise")
       # adjusting for each level
