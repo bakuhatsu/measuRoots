@@ -15,7 +15,7 @@
 #'
 #'  @export
 #'
-rootLengthsApp <- function(wwday0csv = NULL, wwday1csv = NULL, wwday2csv = NULL, wsday0csv = NULL, wsday1csv = NULL, wsday2csv = NULL, returnPlots = FALSE, pdfLabels = TRUE) {
+rootLengthsApp <- function(wwday0csv = NULL, wwday1csv = NULL, wwday2csv = NULL, wsday0csv = NULL, wsday1csv = NULL, wsday2csv = NULL, returnPlots = FALSE, pdfLabels = TRUE, highLow = 65) {
 
   ui <- miniUI::miniPage(
     #shinythemes::themeSelector(), # spacelab was good
@@ -251,12 +251,12 @@ rootLengthsApp <- function(wwday0csv = NULL, wwday1csv = NULL, wwday2csv = NULL,
     wwPlot <- shiny::reactive({
       if(is.null(rootDFww()))
         return(NULL)
-      rootPlot(rootDF = rootDFww(), "Well Watered", max = 65, by = 10)
+      rootPlot(rootDF = rootDFww(), "Well Watered", max = highLow, by = 10)
       })
     wsPlot <- shiny::reactive({
       if(is.null(rootDFws()))
         return(NULL)
-      rootPlot(rootDF = rootDFws(), "Water Stressed", max = 65, by = 10)
+      rootPlot(rootDF = rootDFws(), "Water Stressed", max = highLow, by = 10)
       })
     diffPlot <- shiny::reactive({
       if(is.null(rootDFww()) | is.null(rootDFws))

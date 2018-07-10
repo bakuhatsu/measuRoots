@@ -77,8 +77,8 @@ summaryBvsA <- function(A, B, measurevar = "length", pCuttoff = 0.05, Aname = "W
         type = "message")
         )
       ## Pairwise comparisons
-      ref3 <- lsmeans::lsmeans(fit_mixed, ~ treatment|day, data = pkg.env$combData_tr) # | is same as "by"
-      comps <- lsmeans::contrast(ref3, method="pairwise")
+      ref3 <- emmeans::lsmeans(fit_mixed, ~ treatment|day, data = pkg.env$combData_tr) # | is same as "by"
+      comps <- emmeans::contrast(ref3, method="pairwise")
       # adjusting for each level
       outputLSM <- summary(comps)
       rm(comps)
