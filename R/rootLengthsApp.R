@@ -15,7 +15,7 @@
 #'
 #'  @export
 #'
-rootLengthsApp <- function(wwday0csv = NULL, wwday1csv = NULL, wwday2csv = NULL, wsday0csv = NULL, wsday1csv = NULL, wsday2csv = NULL, returnPlots = FALSE, pdfLabels = TRUE, highLow = 65) {
+rootLengthsApp <- function(wwday0csv = NULL, wwday1csv = NULL, wwday2csv = NULL, wsday0csv = NULL, wsday1csv = NULL, wsday2csv = NULL, returnPlots = FALSE, pdfLabels = TRUE, highLow = 65, diffPlotMin = -20.5) {
 
   ui <- miniUI::miniPage(
     #shinythemes::themeSelector(), # spacelab was good
@@ -74,6 +74,13 @@ rootLengthsApp <- function(wwday0csv = NULL, wwday1csv = NULL, wwday2csv = NULL,
                                shiny::plotOutput("waterStress", width = "85%") #"80%"
                              ),
                              shiny::plotOutput("difference", width = "93%", height = "60%")#, align = "center"
+                           ),
+                           # Set root plot max/min values and difference plot min value
+                           # to dynamically change plots
+                           splitLayout(
+                             cellArgs = list(style = "padding: 6px"),
+                             shiny::numericInput("highLow", "Set root plot y max", highLow),
+                             shiny::numericInput("diffPlotMin", "Set difference plot y min", diffPlotMin)
                            )
       ),
       miniUI::miniTabPanel("Summaries", icon = shiny::icon("table"),
@@ -251,12 +258,12 @@ rootLengthsApp <- function(wwday0csv = NULL, wwday1csv = NULL, wwday2csv = NULL,
     wwPlot <- shiny::reactive({
       if(is.null(rootDFww()))
         return(NULL)
-      rootPlot(rootDF = rootDFww(), "Well Watered", max = highLow, by = 10)
+      rootPlot(rootDF = rootDFww(), "Well Watered", max = input$highLow, by = 10)
       })
     wsPlot <- shiny::reactive({
       if(is.null(rootDFws()))
         return(NULL)
-      rootPlot(rootDF = rootDFws(), "Water Stressed", max = highLow, by = 10)
+      rootPlot(rootDF = rootDFws(), "Water Stressed", max = input$highLow, by = 10)
       })
     diffPlot <- shiny::reactive({
       if(is.null(rootDFww()) | is.null(rootDFws))
@@ -264,7 +271,7 @@ rootLengthsApp <- function(wwday0csv = NULL, wwday1csv = NULL, wwday2csv = NULL,
       # # make summary
       # summWSvsWW <- summaryWSvsWW(rootDFww(), rootDFws(), pCuttoff = 0.05)
       # make plot
-      plotDifferences(summWSvsWW())
+      plotDifferences(summWSvsWW(), ymin = input$diffPlotMin)
       })
     comboPlot <- shiny::reactive({
 

@@ -8,7 +8,7 @@
 #'
 #' @export
 #'
-rootPlot <- function(rootDF, title = "", max = 40, by = 10, returnSummary = FALSE) {
+rootPlot <- function(rootDF, title = "", max = 65, by = 10, returnSummary = FALSE) {
   ## Already in long format, next summarize data
   rootDFsumm <- Rmisc::summarySE(rootDF, measurevar = "length", groupvars=c("day","structure"))
 
@@ -91,10 +91,10 @@ rootPlot <- function(rootDF, title = "", max = 40, by = 10, returnSummary = FALS
     ggplot2::theme_bw() +
     ggplot2::ggtitle(title) +
     # geom_text(data=rootDFsumm.d1, aes(x=4.5, y=30, label="shoot"), size = 10, color="black", inherit.aes=FALSE, parse=FALSE) + # Adds amino acid names as text in the bottom right corner of each facet
-    ggplot2::geom_text(data=rootDFsumm.d0, ggplot2::aes(x=4.25, y= 60, label="shoot"), size = 10, color="black", inherit.aes=FALSE, parse=FALSE) + # Adds amino acid names as text in the bottom right corner of each facet
+    ggplot2::geom_text(data=rootDFsumm.d0, ggplot2::aes(x=4.25, y = max - 5, label="shoot"), size = 10, color="black", inherit.aes=FALSE, parse=FALSE) + # y = 60 # Adds amino acid names as text in the bottom right corner of each facet
     # geom_text(data=rootDFsumm.d1, aes(x=4.5, y= 35, label="shoot"), size = 10, color="black", inherit.aes=FALSE, parse=FALSE) + # Adds amino acid names as text in the bottom right corner of each facet
     # geom_text(data=rootDFsumm.d1, aes(x=4.5, y=-33, label="roots"), size = 10, color="black", inherit.aes=FALSE, parse=FALSE) + # Adds amino acid names as text in the center right of each facet
-    ggplot2::geom_text(data=rootDFsumm.d0, ggplot2::aes(x=4.4, y= -63, label="roots"), size = 10, color="black", inherit.aes=FALSE, parse=FALSE) + # Adds amino acid names as text in the center right of each facet
+    ggplot2::geom_text(data=rootDFsumm.d0, ggplot2::aes(x=4.4, y = -(max - 2), label="roots"), size = 10, color="black", inherit.aes=FALSE, parse=FALSE) + # y = -63# Adds amino acid names as text in the center right of each facet
   # geom_text(data=rootDFsumm.d1, aes(x=4.5, y= -38, label="roots"), size = 10, color="black", inherit.aes=FALSE, parse=FALSE) + # Adds amino acid names as text in the center right of each facet
     #guides(fill = guide_legend(reverse=TRUE)) +
     ggplot2::scale_x_discrete(breaks = c(1,2,3,4,5,6), labels=c("r4","r2","r1","r3","r5","r6")) +
